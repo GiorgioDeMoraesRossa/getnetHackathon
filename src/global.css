@@ -12,3 +12,28 @@ header {
   justify-content: space-between;
   width: 95%;
 }
+
+h1,
+h2 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  color: #4f4f4f;
+}
+
+h3,
+h4,
+h5 div,
+a {
+  font-family: "Roboto", sans-serif;
+  color: #4f4f4f;
+}
+
+p {
+  font-family: "Roboto", sans-serif;
+  color: #828282;
+}
+
+span {
+  font-family: "Roboto", sans-serif;
+  color: #333333;
+}
