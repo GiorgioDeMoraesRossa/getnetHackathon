@@ -1,0 +1,10 @@
+#content-dash {
+  display: grid;
+  width: 100%;
+  align-self: center;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  padding: 2%;
+  margin: 3px;
+  border-radius: 15px;
+}
