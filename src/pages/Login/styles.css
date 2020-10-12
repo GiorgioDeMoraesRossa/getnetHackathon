@@ -1,0 +1,24 @@
+.full-height {
+    height: 100vh;
+    width: 100%;
+    background-image: url('../../assets/Shape.png');
+}
+
+.centered-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    width: 80%;
+    padding: 40px;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 3px 3px 15px #0004;
+}
+
+.login-button {
+    background-color: #EB5757;
+    color: #fff;
+}
