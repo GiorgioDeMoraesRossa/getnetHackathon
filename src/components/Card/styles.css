@@ -1,8 +1,17 @@
-#container-card {
+.offer-img {
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  width: 100%;
+  height: auto;
+}
+
+.container-card {
+  position: relative;
   width: 20vw;
-  padding: 3%;
-  margin: 3px;
-  border-radius: 12px;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,21 +21,35 @@
   border: 2px solid #bdbdbd;
 }
 
-#container-card h4 {
+.container-card > *:not(img):not(.discount-div) {
+  padding: 0 10px;
+}
+
+.container-card > *:not(img):not(.discount-div):first-child {
+  padding-top: 10px;
+}
+
+.container-card > *:not(img):not(.discount-div):last-child {
+  padding-bottom: 10px;
+}
+
+.container-card h4 {
   margin-top: 1%;
   margin-bottom: 1%;
 }
 
-#container-card p {
+.container-card p {
   margin-top: 3%;
   align-self: center;
 }
-#container-card span {
+
+.container-card span {
   margin-top: 5%;
   margin-left: 1%;
   align-self: flex-start;
 }
-#image-div {
+
+.image-div {
   align-self: center;
   height: 200px;
   width: 100%;
@@ -34,17 +57,19 @@
   margin: 0;
 }
 
-#discount-div {
-  position: relative;
-  top: 8%;
-  left: 80%;
+.discount-div {
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  right: 5px;
   display: flex;
   flex-direction: row;
   background-color: #27ae60;
+  padding: 5px;
   margin: 0;
 }
 
-#discount-div p {
+.discount-div p {
   margin: 0;
   color: #fff;
 }

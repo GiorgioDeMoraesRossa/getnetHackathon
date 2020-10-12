@@ -21,12 +21,12 @@ export default function Routes() {
   return !isAuthenticated ? <Login authCallback={authenticate} /> : (
     <Router baseRoute={process.env.PUBLIC_URL}>
       <Switch>
-        <Route path="/" exact component={() => <Dashboard api={requester} />} />
-        <Route path="/me" component={() => <Profile api={requester} />} />
-        <Route path="/Service" component={() => <Service api={requester} />} />
-        <Route path="/Messages" component={() => <Messages api={requester} />} />
-        <Route path="/History" component={() => <HistoryService api={requester} />} />
-        <Route path="/Buy" component={() => <Buy api={requester} />} />
+        <Route path="/" exact component={(...props) => <Dashboard {...props} api={requester} />} />
+        <Route path="/me" component={(...props) => <Profile {...props} api={requester} />} />
+        <Route path="/service/:id" component={(...props) => <Service {...props} api={requester} />} />
+        <Route path="/Messages" component={(...props) => <Messages {...props} api={requester} />} />
+        <Route path="/History" component={(...props) => <HistoryService {...props} api={requester} />} />
+        <Route path="/Buy" component={(...props) => <Buy {...props} api={requester} />} />
       </Switch>
     </Router>
   );

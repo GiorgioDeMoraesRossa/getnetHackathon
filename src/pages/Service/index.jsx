@@ -1,15 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import "./styles.css";
 import Checkbox from "@material-ui/core/Checkbox";
-import { FiMessageSquare, FiShoppingCart, FiSearch } from "react-icons/fi";
+import { FiMessageSquare, FiShoppingCart } from "react-icons/fi";
 
-export default function Service(props) {
-  const [service, setService] = useState({});
-  const [page, setPage] = useState(1);
+export default function Service({ api }) {
+  const router = useRouteMatch();
+  const [service, setService] = useState({
+    id: 0,
+    created_at: Date.now(),
+    company_cnpj: "46025089000141",
+    title: "Carregando...",
+    "description": "Carregando...",
+    "price": 0,
+    "is_unitary_price": true,
+    "is_subscription": false,
+    "subscription_span": 0,
+    "discount_percentage": 5,
+    "is_active": true
+});
+  const [page, setPage] = useState(0);
+
   useEffect(() => {
-    setService(props.location.state.service);
-  });
+    api.get('/services/' + router.params.id).then(setService);
+  }, [router, api]);
 
   return (
     <div>

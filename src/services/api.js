@@ -88,8 +88,6 @@ export const secureRequest = authenticator => {
                 Authorization: `Bearer ${localStorage.getItem('bearerToken')}`
             };
 
-            console.log(headers);
-
             const response = (await api[method](uri, {
                 ...params,
                 headers
