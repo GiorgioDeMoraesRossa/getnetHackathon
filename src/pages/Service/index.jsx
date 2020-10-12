@@ -36,29 +36,52 @@ export default function Service(props) {
           <Link to="/">Voltar</Link>
         </header>
 
-        <div id="content">
-          <h2 style={{ fontWeight: 500 }}>{service.title}</h2>
-          <p>Empresa: {service.company_cnpj}</p>
-          <span>{service.description}</span>
-          <div>
-            Preço unitário
-            <Checkbox checked={service.is_unitary_price === true} disabled />
+        <h2 style={{ fontWeight: 600, marginTop: "18%", marginLeft: "15%" }}>
+          {service.title}
+        </h2>
+        <div id="content-container">
+          <div id="pictures-div">
+            <div id="pictures-small">
+              <div id="picture-small">&nbsp;</div>
+              <div id="picture-small">&nbsp;</div>
+              <div id="picture-small">&nbsp;</div>
+              <div id="picture-small">&nbsp;</div>
+            </div>
+
+            <div id="picture-featured">&nbsp;</div>
           </div>
-          <span style={{ alignSelf: "center" }}>Preço: R$ {service.price}</span>
-          <Link
-            id="button-pay"
-            style={{ marginTop: 5, alignSelf: "center" }}
-            to={{
-              pathname: "/buy",
-              state: { price: service.price, cnpj: service.cnpj },
-            }}
-          >
-            <span>Comprar</span>
-          </Link>
-        </div>
-        <div id="div-buttons">
-          <Link to="/history">Historico</Link>{" "}
-          <Link to="/messages">Mensagens</Link>
+
+          <div id="content">
+            <p>Vendido por: {service.company_cnpj}</p>
+            <span>{service.description}</span>
+            <div>
+              Preço unitário
+              <Checkbox checked={service.is_unitary_price === true} disabled />
+            </div>
+            <span style={{ alignSelf: "center" }}>
+              Preço: R$ {service.price}
+            </span>
+            <Link
+              id="button-pay"
+              style={{ marginTop: 5, alignSelf: "center" }}
+              to={{
+                pathname: "/buy",
+                state: { price: service.price, cnpj: service.cnpj },
+              }}
+            >
+              <span style={{ width: "30%" }}>
+                <FiShoppingCart
+                  color="#fff"
+                  size={20}
+                  style={{ marginRight: "2%" }}
+                />
+              </span>
+
+              <span style={{ color: "#fff", width: "70%" }}>
+                Adicionar ao carrinho
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
