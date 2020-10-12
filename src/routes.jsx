@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-//import { AuthContext } from "./contexts/auth.context";
+import React, { useEffect } from "react";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
+
+import useAuthentication from "./hooks/useAuthentication";
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -11,22 +12,22 @@ import HistoryService from "./pages/HistoryService";
 import Buy from "./pages/Buy";
 
 export default function Routes() {
-  // const { authenticated } = useContext(AuthContext);
-  let authenticated = true;
-  return (
-    <BrowserRouter>
-      {!authenticated ? (
-        <Route path="/" exact component={Login} />
-      ) : (
-        <Switch>
-          <Route path="/" exact component={Dashboard} />
-        </Switch>
-      )}
-      <Route path="/me" component={Profile} />
-      <Route path="/Service" component={Service} />
-      <Route path="/Messages" component={Messages} />
-      <Route path="/History" component={HistoryService} />
-      <Route path="/Buy" component={Buy} />
-    </BrowserRouter>
+  const [isAuthenticated, authenticate, requester] = useAuthentication();
+
+  useEffect(() => {
+    if (!isAuthenticated) authenticate();
+  }, [isAuthenticated, authenticate]);
+
+  return !isAuthenticated ? <Login authCallback={authenticate} /> : (
+    <Router baseRoute={process.env.PUBLIC_URL}>
+      <Switch>
+        <Route path="/" exact component={() => <Dashboard api={requester} />} />
+        <Route path="/me" component={() => <Profile api={requester} />} />
+        <Route path="/Service" component={() => <Service api={requester} />} />
+        <Route path="/Messages" component={() => <Messages api={requester} />} />
+        <Route path="/History" component={() => <HistoryService api={requester} />} />
+        <Route path="/Buy" component={() => <Buy api={requester} />} />
+      </Switch>
+    </Router>
   );
 }
