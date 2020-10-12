@@ -11,7 +11,6 @@ const Login = ({ authCallback }) => {
   async function handleLogin() {
     const isAuthenticated = await authenticate(cnpj.replace(/\D/g, ''), password);
     if (!isAuthenticated) return;
-    
     await authCallback();
   }
 

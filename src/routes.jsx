@@ -12,24 +12,21 @@ import HistoryService from "./pages/HistoryService";
 import Buy from "./pages/Buy";
 
 export default function Routes() {
-  const [isDefAuthenticated, setDefAuthenticated] = useState(false);
-  const [isAuthenticated, authenticate] = useAuthentication();
+  const [isAuthenticated, authenticate, requester] = useAuthentication();
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      authenticate().then(setDefAuthenticated);
-    }
+    if (!isAuthenticated) authenticate();
   }, [isAuthenticated, authenticate]);
 
-  return !isDefAuthenticated ? <Login authCallback={authenticate}/> : (
+  return !isAuthenticated ? <Login authCallback={authenticate} /> : (
     <Router baseRoute={process.env.PUBLIC_URL}>
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/me" component={Profile} />
-        <Route path="/Service" component={Service} />
-        <Route path="/Messages" component={Messages} />
-        <Route path="/History" component={HistoryService} />
-        <Route path="/Buy" component={Buy} />
+        <Route path="/" exact component={() => <Home api={requester} />} />
+        <Route path="/me" component={() => <Profile api={requester} />} />
+        <Route path="/Service" component={() => <Service api={requester} />} />
+        <Route path="/Messages" component={() => <Messages api={requester} />} />
+        <Route path="/History" component={() => <HistoryService api={requester} />} />
+        <Route path="/Buy" component={() => <Buy api={requester} />} />
       </Switch>
     </Router>
   );

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { authProvider } from '../services/api';
+import { authProvider, secureRequest } from '../services/api';
 
 const useAuthentication = () => {
     const [isAuthenticated, setAuthenticated] = useState(false);
@@ -10,7 +10,9 @@ const useAuthentication = () => {
         return auth;
     };
 
-    return [isAuthenticated, authenticate];
+    const requester = secureRequest(authenticate);
+
+    return [isAuthenticated, authenticate, requester];
 };
 
 export default useAuthentication;
