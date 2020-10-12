@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./styles.css";
+import {
+  FiChevronLeft,
+  FiChevronRight,
+  FiMessageSquare,
+  FiShoppingCart,
+  FiSearch,
+} from "react-icons/fi";
 
 import api from "../../services/api";
 import api2 from "../../services/apiGetnet";
@@ -36,6 +43,7 @@ export default function Dashboard() {
       is_active: true,
     },
   ]);
+  const [page, setPage] = useState(1);
 
   /*useEffect(() => {
     api
@@ -76,17 +84,43 @@ export default function Dashboard() {
       <header id="dash-header">
         <div className="headerContent">
           <h1>Getplace</h1>
+          <input id="search" placeholder="Pesquisar" />
+          <span className={page === 1 ? "page-selected" : "page-not-selected"}>
+            Para seu negócio
+          </span>
+          <span className={page === 2 ? "page-selected" : "page-not-selected"}>
+            Para seu negócio
+          </span>
+          <FiMessageSquare style={{ cursor: "pointer" }} size={30} />
+          <FiShoppingCart style={{ cursor: "pointer" }} size={30} />
           <Link to="/me">Meu perfil</Link>
         </div>
       </header>
-      <h3>Serviços para seu negócio</h3>
-      <body id="content-dash">
-        {services !== []
-          ? services.map((service) => (
-              <Card key={service.id} service={service} />
-            ))
-          : null}
-      </body>
+      <div id="featured-div">
+        <img id="image-div" src={"https://picsum.photos/1200/300"} />
+        <div id="div-arr">
+          <FiChevronLeft
+            id="arr-left"
+            size={30}
+            onClick={() => alert("Oferta anterior")}
+          />
+          <FiChevronRight
+            id="arr-right"
+            size={30}
+            onClick={() => alert("Próxima oferta")}
+          />
+        </div>
+      </div>
+      <div id="pos-featured">
+        <h3>Serviços para seu negócio</h3>
+        <body id="content-dash">
+          {services !== []
+            ? services.map((service) => (
+                <Card key={service.id} service={service} />
+              ))
+            : null}
+        </body>
+      </div>
     </div>
   );
 }

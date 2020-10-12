@@ -7,8 +7,6 @@
 #content {
   display: flex;
   flex-direction: column;
-  background-color: cornsilk;
-  border-radius: 10px;
   padding: 2%;
   align-self: center;
   align-items: flex-start;
@@ -33,4 +31,15 @@
   margin-top: 12px;
   font-size: 20px;
   color: black;
+}
+
+#triangle {
+  width: 0;
+  right: 0;
+  top: 20%;
+  position: absolute;
+  border-style: solid;
+  border-width: 200px 1400px 100px 0px;
+  border-color: transparent #fff #fff transparent;
+  z-index: -1;
 }
