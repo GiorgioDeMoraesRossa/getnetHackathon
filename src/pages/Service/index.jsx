@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import "./styles.css";
-import Checkbox from "@material-ui/core/Checkbox";
 import { FiMessageSquare, FiShoppingCart } from "react-icons/fi";
+
+import iFrameBuilder from '../../services/iframe';
 
 export default function Service({ api }) {
   const router = useRouteMatch();
+  const builder = iFrameBuilder(api);
+  const [quantity, setQuantity] = useState(1);
+  const [willBuy, setWillBuy] = useState(false);
   const [service, setService] = useState({
     id: 0,
     created_at: Date.now(),
@@ -24,6 +28,10 @@ export default function Service({ api }) {
   useEffect(() => {
     api.get('/services/' + router.params.id).then(setService);
   }, [router, api]);
+
+  async function handleTrade() {
+    await builder(service.is_unitary_price ? service.price * quantity : service.price, () => setWillBuy(true));
+  }
 
   return (
     <div>
@@ -68,20 +76,17 @@ export default function Service({ api }) {
           <div id="content">
             <p>Vendido por: {service.company_cnpj}</p>
             <span>{service.description}</span>
-            <div>
-              Preço unitário
-              <Checkbox checked={service.is_unitary_price === true} disabled />
-            </div>
+            {service.is_unitary_price && <div>
+              Quantidade <input type="number" placeholder="1" min="0" value={quantity} onChange={e => setQuantity(e.target.value || 0)}/>
+            </div>}
             <span style={{ alignSelf: "center" }}>
-              Preço: R$ {service.price}
+              Preço: R$ {service.is_unitary_price ? service.price * quantity : service.price}
             </span>
-            <Link
+
+            {!willBuy ? <button
               id="button-pay"
-              style={{ marginTop: 5, alignSelf: "center" }}
-              to={{
-                pathname: "/buy",
-                state: { price: service.price, cnpj: service.cnpj },
-              }}
+              style={{ marginTop: 5, alignSelf: "center", cursor: "pointer"}}
+              onClick={handleTrade}
             >
               <span style={{ width: "30%" }}>
                 <FiShoppingCart
@@ -92,9 +97,25 @@ export default function Service({ api }) {
               </span>
 
               <span style={{ color: "#fff", width: "70%" }}>
-                Adicionar ao carrinho
+                Gerar compra
               </span>
-            </Link>
+            </button> : <button
+              id="button-pay"
+              className="__triggerClass"
+              style={{ marginTop: 5, alignSelf: "center", cursor: "pointer"}}
+            >
+              <span style={{ width: "30%" }}>
+                <FiShoppingCart
+                  color="#fff"
+                  size={20}
+                  style={{ marginRight: "2%" }}
+                />
+              </span>
+
+              <span style={{ color: "#fff", width: "70%" }}>
+                Pagar
+              </span>
+            </button>}
           </div>
         </div>
       </div>

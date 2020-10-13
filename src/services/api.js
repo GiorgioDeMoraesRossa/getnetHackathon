@@ -82,8 +82,6 @@ export const secureRequest = authenticator => {
         try {
             await authenticator();
 
-            console.log(localStorage.getItem('bearerToken'));
-
             const headers = {
                 Authorization: `Bearer ${localStorage.getItem('bearerToken')}`
             };

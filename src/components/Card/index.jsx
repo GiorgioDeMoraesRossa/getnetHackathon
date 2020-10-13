@@ -6,7 +6,6 @@ export default function Card({ service }) {
     <Link
       className="container-card"
       to={`/service/${service.id}`} 
-      onClick={() => console.log(service)}
     >
       <div className="discount-div">
         <p> {service.discount_percentage}% Off</p>
